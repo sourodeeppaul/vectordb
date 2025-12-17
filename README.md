@@ -24,7 +24,7 @@ Dataset Size	Index	QPS	Recall@10
 1,000,000	HNSW	3,000	96%
 
 
-## Step 3: Configuration Module
+## Configuration Module
 
 ### 📄 `config/settings.py`
 
@@ -208,25 +208,25 @@ def get_config(config_path: Optional[str] = None) -> VectorDBConfig:
 
 ## Requirements
 
-# Core dependencies
+- Core dependencies
 numpy>=1.21.0
 scipy>=1.7.0
 
-# Data structures
+- Data structures
 sortedcontainers>=2.4.0
 
-# Serialization
+- Serialization
 msgpack>=1.0.0
 
-# Optional: API server
+- Optional: API server
 fastapi>=0.100.0
 uvicorn>=0.23.0
 pydantic>=2.0.0
 
-# Optional: Performance
+- Optional: Performance
 numba>=0.57.0
 
-# Development
+- Development
 pytest>=7.0.0
 pytest-cov>=4.0.0
 pytest-benchmark>=4.0.0
@@ -234,7 +234,7 @@ black>=23.0.0
 isort>=5.12.0
 mypy>=1.0.0
 
-# Documentation
+- Documentation
 mkdocs>=1.5.0
 mkdocs-material>=9.0.0
 
@@ -249,4 +249,61 @@ pip install -e .
 # With development dependencies
 pip install -e ".[dev,server]"
 ```
+# Makefile
 
+.PHONY: install dev-install test lint format clean docs run-server benchmark
+
+### Installation
+install:
+	pip install -e .
+
+dev-install:
+	pip install -e ".[dev,server]"
+
+### Testing
+test:
+	pytest tests/ -v
+
+test-unit:
+	pytest tests/unit/ -v
+
+test-integration:
+	pytest tests/integration/ -v
+
+test-cov:
+	pytest tests/ --cov=vectordb --cov-report=html
+
+benchmark:
+	pytest tests/benchmark/ -v --benchmark-only
+
+### Code quality
+lint:
+	black --check vectordb/ tests/
+	isort --check-only vectordb/ tests/
+	mypy vectordb/
+
+format:
+	black vectordb/ tests/
+	isort vectordb/ tests/
+
+### Documentation
+docs:
+	mkdocs serve
+
+docs-build:
+	mkdocs build
+
+### Server
+run-server:
+	uvicorn vectordb.server.app:app --reload --host 0.0.0.0 --port 8000
+
+### Cleanup
+clean:
+	rm -rf build/
+	rm -rf dist/
+	rm -rf *.egg-info/
+	rm -rf .pytest_cache/
+	rm -rf .mypy_cache/
+	rm -rf htmlcov/
+	find . -type d -name __pycache__ -exec rm -rf {} +
+	find . -type f -name "*.pyc" -delete
