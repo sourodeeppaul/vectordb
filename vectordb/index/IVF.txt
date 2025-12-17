@@ -1,0 +1,16 @@
+IVF Structure:
+
+Training Phase:
+    Vectors ──► K-Means ──► Centroids (n_clusters)
+
+Index Structure:
+    Centroid 0: [vec_12, vec_45, vec_89, ...]
+    Centroid 1: [vec_3, vec_67, vec_102, ...]
+    Centroid 2: [vec_8, vec_23, vec_56, ...]
+    ...
+    Centroid k: [vec_1, vec_34, vec_78, ...]
+
+Search:
+    1. Find n_probe nearest centroids to query
+    2. Search only vectors in those clusters
+    3. Return top-k from combined results

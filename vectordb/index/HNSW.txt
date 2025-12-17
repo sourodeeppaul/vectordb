@@ -1,0 +1,12 @@
+HNSW Structure:
+
+Layer 3:    [A]─────────────────────[B]
+             │                        │
+Layer 2:    [A]────[C]───────[D]────[B]
+             │      │         │      │
+Layer 1:    [A]─[E]─[C]─[F]─[G]─[D]─[B]─[H]
+             │   │   │   │   │   │   │   │
+Layer 0:    [A]─[E]─[C]─[F]─[G]─[D]─[B]─[H]─[I]─[J]─[K]...
+            (All nodes exist at layer 0)
+
+Search: Start at top layer, greedily descend to layer 0

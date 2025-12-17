@@ -1,0 +1,42 @@
+# VectorDB Default Configuration
+
+# Core settings
+dimension: 128
+metric: "euclidean"  # euclidean, cosine, dot, manhattan
+index_type: "flat"   # flat, ivf, hnsw
+
+# Vector normalization (useful for cosine similarity)
+normalize_vectors: false
+
+# IVF Index settings
+ivf_config:
+  n_clusters: 100
+  n_probe: 10
+  n_training_samples: 10000
+  max_iterations: 20
+
+# HNSW Index settings
+hnsw_config:
+  M: 16
+  M_max: 16
+  M_max0: 32
+  ef_construction: 200
+  ef_search: 50
+
+# Storage settings
+storage_config:
+  data_dir: "./vectordb_data"
+  use_mmap: true
+  sync_writes: false
+  compression: null  # null, lz4, zstd
+
+# Cache settings
+cache_config:
+  enable_cache: true
+  max_cache_size_mb: 256
+  cache_policy: "lru"
+
+# Operational settings
+batch_size: 1000
+num_threads: 4
+log_level: "INFO"
