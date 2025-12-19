@@ -20,7 +20,7 @@ A high-performance vector database for similarity search, built from scratch in 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/vectordb.git
+git clone https://github.com/sourodeeppaul/vectordb.git
 cd vectordb
 
 # Install in development mode
